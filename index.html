@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analogni časovnik</title>
+    <style>
+        canvas {
+            border: 2px solid rgb(10, 9, 10);
+        }
+        .number {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    <canvas id="clock" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("clock");
+        const ctx = canvas.getContext("2d");
+        
+        function drawClock() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(canvas.width / 2, canvas.height / 2, 150, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+    
+    
+ 
+    const hours = new Date().getHours();
+    const hoursAngle = (hours % 12) * 30 + 90; 
+    const hoursLength = 80;
+    const hoursX = canvas.width / 2 + hoursLength * Math.cos(hoursAngle * (Math.PI / 180));
+    const hoursY = canvas.height / 2 + hoursLength * Math.sin(hoursAngle * (Math.PI / 180));
+    
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, canvas.height / 2);
+    ctx.lineTo(hoursX, hoursY);
+    ctx.stroke();
+    ctx.closePath();
+    
+    
+  
+const minutes = new Date().getMinutes();
+const minutesAngle = minutes * 6 + 90; 
+const minutesLength = 100;
+const minutesX = canvas.width / 2 + minutesLength * Math.cos(minutesAngle * (Math.PI / 180));
+const minutesY = canvas.height / 2 + minutesLength * Math.sin(minutesAngle * (Math.PI / 180));
+
+ctx.beginPath();
+ctx.moveTo(canvas.width / 2, canvas.height / 2);
+ctx.lineTo(minutesX, minutesY);
+ctx.lineWidth = 6;
+ctx.strokeStyle= "deeppink" 
+ctx.stroke();
+ctx.closePath();
+
+
+const seconds = new Date().getSeconds();
+const secondsAngle = seconds * 6 + 90;
+const secondsLength = 120;
+const secondsX = canvas.width / 2 + secondsLength * Math.cos(secondsAngle * (Math.PI / 180));
+const secondsY = canvas.height / 2 + secondsLength * Math.sin(secondsAngle * (Math.PI / 180));
+
+ctx.beginPath();
+ctx.moveTo(canvas.width / 2, canvas.height / 2);
+ctx.lineTo(secondsX, secondsY);
+ctx.strokeStyle = 'pink'
+ctx.stroke();
+ctx.closePath();
+
+
+ }
+    function updateClockHands() {
+    const now = new Date();
+    const seconds = now.getSeconds();
+    const minutes = now.getMinutes();
+    const hours = now.getHours(); }
+
+
+
+
+
+function startClockAnimation() {
+   
+    setInterval(function () {
+        drawClock();
+        updateClockHands();
+    }, 1000); 
+}
+
+startClockAnimation();
+
+    </script>
+</body>
+</html>
